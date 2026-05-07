@@ -62,6 +62,9 @@ param systemPoolConfig object
 @description('The DNS prefix to associate with the AKS cluster')
 param dnsPrefix string = ''
 
+@description('The resource ID of the disk encryption set for encrypting the OS disk of agent nodes')
+param diskEncryptionSetID string = ''
+
 resource aks 'Microsoft.ContainerService/managedClusters@2023-11-01' = {
   name: name
   location: location
@@ -74,6 +77,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2023-11-01' = {
     tier: sku
   }
   properties: {
+    diskEncryptionSetID: !empty(diskEncryptionSetID) ? diskEncryptionSetID : null
     nodeResourceGroup: !empty(nodeResourceGroupName) ? nodeResourceGroupName : 'rg-mc-${name}'
     kubernetesVersion: kubernetesVersion
     dnsPrefix: empty(dnsPrefix) ? '${name}-dns' : dnsPrefix

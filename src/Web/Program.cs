@@ -25,10 +25,11 @@ else
 }
 
 app.UseHttpsRedirection();
-app.UseCors(static builder => 
+app.UseCors(static builder =>
     builder.AllowAnyMethod()
         .AllowAnyHeader()
-        .AllowAnyOrigin());
+        .WithOrigins(
+            Environment.GetEnvironmentVariable("ALLOWED_ORIGINS")?.Split(',') ?? Array.Empty<string>()));
 
 app.MapOpenApi();
 app.MapScalarApiReference();

@@ -28,6 +28,9 @@ resource profile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
   sku: {
     name: sku
   }
+  identity: {
+    type: 'SystemAssigned'
+  }
 }
 
 output id string = profile.id

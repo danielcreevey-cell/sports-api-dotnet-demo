@@ -39,6 +39,9 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   tags: tags
   kind: kind
   sku: sku
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     accessTier: accessTier
     allowBlobPublicAccess: allowBlobPublicAccess
@@ -46,6 +49,17 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
     allowSharedKeyAccess: allowSharedKeyAccess
     defaultToOAuthAuthentication: defaultToOAuthAuthentication
     dnsEndpointType: dnsEndpointType
+    encryption: {
+      services: {
+        blob: {
+          enabled: true
+        }
+        file: {
+          enabled: true
+        }
+      }
+      keySource: 'Microsoft.Storage'
+    }
     isHnsEnabled: isHnsEnabled
     minimumTlsVersion: minimumTlsVersion
     networkAcls: networkAcls

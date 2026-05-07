@@ -22,6 +22,9 @@ module cosmos 'cosmos-mongo-account.bicep' = {
 resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2022-11-15' = {
   name: '${accountName}/${databaseName}'
   tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     resource: { id: databaseName }
   }

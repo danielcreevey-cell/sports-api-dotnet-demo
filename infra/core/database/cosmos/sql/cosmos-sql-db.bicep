@@ -20,6 +20,9 @@ module cosmos 'cosmos-sql-account.bicep' = {
 
 resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-11-15' = {
   name: '${accountName}/${databaseName}'
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     resource: { id: databaseName }
   }

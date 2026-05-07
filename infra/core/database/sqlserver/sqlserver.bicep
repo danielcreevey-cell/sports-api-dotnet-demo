@@ -21,6 +21,9 @@ resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   name: name
   location: location
   tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     version: '12.0'
     minimalTlsVersion: '1.2'
@@ -47,6 +50,7 @@ resource sqlServerAuditingSettings 'Microsoft.Sql/servers/auditingSettings@2023-
   properties: {
     state: 'Enabled'
     isAzureMonitorTargetEnabled: true
+    retentionDays: 90
   }
 }
 
@@ -54,6 +58,9 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2023-08-01-preview' = {
   parent: sqlServer
   name: databaseName
   location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
 }
 
 resource sqlDatabaseDiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = if (!(empty(logAnalyticsWorkspaceId))) {
@@ -120,6 +127,9 @@ resource sqlDeploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' 
   name: '${name}-deployment-script'
   location: location
   kind: 'AzureCLI'
+  identity: {
+    type: 'UserAssigned'
+  }
   properties: {
     azCliVersion: '2.37.0'
     retentionInterval: 'PT1H' // Retain the script resource for 1 hour after it ends running
