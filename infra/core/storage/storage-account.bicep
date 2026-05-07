@@ -59,6 +59,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
         }
       }
       keySource: 'Microsoft.Storage'
+      requireInfrastructureEncryption: true
     }
     isHnsEnabled: isHnsEnabled
     minimumTlsVersion: minimumTlsVersion
