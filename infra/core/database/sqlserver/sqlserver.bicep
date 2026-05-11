@@ -21,10 +21,13 @@ resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   name: name
   location: location
   tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     version: '12.0'
     minimalTlsVersion: '1.2'
-    publicNetworkAccess: 'Enabled'
+    publicNetworkAccess: 'Disabled'
     administratorLogin: sqlAdmin
     administratorLoginPassword: sqlAdminPassword
   }
@@ -32,11 +35,9 @@ resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   resource firewall 'firewallRules' = {
     name: 'Azure Services'
     properties: {
-      // Allow all clients
-      // Note: range [0.0.0.0-0.0.0.0] means "allow all Azure-hosted clients only".
-      // This is not sufficient, because we also want to allow direct access from developer machine, for debugging purposes.
-      startIpAddress: '0.0.0.1'
-      endIpAddress: '255.255.255.254'
+      // Allow Azure-hosted clients only
+      startIpAddress: '0.0.0.0'
+      endIpAddress: '0.0.0.0'
     }
   }
 }
@@ -47,6 +48,7 @@ resource sqlServerAuditingSettings 'Microsoft.Sql/servers/auditingSettings@2023-
   properties: {
     state: 'Enabled'
     isAzureMonitorTargetEnabled: true
+    retentionDays: 90
   }
 }
 

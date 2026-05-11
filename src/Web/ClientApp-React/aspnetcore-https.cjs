@@ -22,7 +22,8 @@ const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
 if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-  spawn('dotnet', [
+  const dotnetPath = '/usr/bin/dotnet';
+  spawn(dotnetPath, [
     'dev-certs',
     'https',
     '--export-path',

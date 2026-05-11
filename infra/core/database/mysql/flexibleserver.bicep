@@ -22,6 +22,9 @@ resource mysqlServer 'Microsoft.DBforMySQL/flexibleServers@2023-06-30' = {
   tags: tags
   name: name
   sku: sku
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     version: version
     administratorLogin: administratorLogin

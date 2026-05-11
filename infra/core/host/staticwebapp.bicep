@@ -13,6 +13,9 @@ resource web 'Microsoft.Web/staticSites@2022-03-01' = {
   location: location
   tags: tags
   sku: sku
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     provider: 'Custom'
   }

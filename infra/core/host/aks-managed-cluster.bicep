@@ -62,6 +62,9 @@ param systemPoolConfig object
 @description('The DNS prefix to associate with the AKS cluster')
 param dnsPrefix string = ''
 
+@description('The disk encryption set ID for encrypting the OS disk of the agent pool nodes')
+param diskEncryptionSetID string = ''
+
 resource aks 'Microsoft.ContainerService/managedClusters@2023-11-01' = {
   name: name
   location: location
@@ -84,7 +87,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2023-11-01' = {
       tenantID: aadTenantId
     } : null
     agentPoolProfiles: [
-      systemPoolConfig
+      union(systemPoolConfig, !empty(diskEncryptionSetID) ? { diskEncryptionSetID: diskEncryptionSetID } : {})
     ]
     networkProfile: {
       loadBalancerSku: loadBalancerSku

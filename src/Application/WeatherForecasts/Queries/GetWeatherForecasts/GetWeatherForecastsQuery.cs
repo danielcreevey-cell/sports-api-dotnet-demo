@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿using System.Security.Cryptography;
+
+namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
 public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
 
@@ -13,13 +15,11 @@ public class GetWeatherForecastsQueryHandler : IRequestHandler<GetWeatherForecas
     public async Task<IEnumerable<WeatherForecast>> Handle(GetWeatherForecastsQuery request, CancellationToken cancellationToken)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
-        var rng = new Random();
-
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
-            TemperatureC = rng.Next(-20, 55),
-            Summary = Summaries[rng.Next(Summaries.Length)]
+            TemperatureC = RandomNumberGenerator.GetInt32(-20, 55),
+            Summary = Summaries[RandomNumberGenerator.GetInt32(Summaries.Length)]
         });
     }
 }

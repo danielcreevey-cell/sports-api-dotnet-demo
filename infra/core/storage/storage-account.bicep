@@ -39,7 +39,17 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   tags: tags
   kind: kind
   sku: sku
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
+    encryption: {
+      services: {
+        blob: { enabled: true }
+        file: { enabled: true }
+      }
+      keySource: 'Microsoft.Storage'
+    }
     accessTier: accessTier
     allowBlobPublicAccess: allowBlobPublicAccess
     allowCrossTenantReplication: allowCrossTenantReplication

@@ -35,6 +35,9 @@ resource apimService 'Microsoft.ApiManagement/service@2021-08-01' = {
     name: sku
     capacity: (sku == 'Consumption') ? 0 : ((sku == 'Developer') ? 1 : skuCount)
   }
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     publisherEmail: publisherEmail
     publisherName: publisherName
