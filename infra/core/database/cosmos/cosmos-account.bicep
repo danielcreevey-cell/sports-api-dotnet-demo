@@ -14,6 +14,9 @@ resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2023-11-15' = {
   kind: kind
   location: location
   tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     consistencyPolicy: { defaultConsistencyLevel: 'Session' }
     locations: [

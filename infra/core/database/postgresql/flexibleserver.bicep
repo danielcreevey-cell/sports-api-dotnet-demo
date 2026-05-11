@@ -29,6 +29,9 @@ resource postgresServer 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' =
   tags: tags
   name: name
   sku: sku
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     version: version
     administratorLogin: administratorLogin

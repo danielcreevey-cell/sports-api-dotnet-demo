@@ -25,6 +25,9 @@ resource profile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
   name: name
   location: location
   tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   sku: {
     name: sku
   }

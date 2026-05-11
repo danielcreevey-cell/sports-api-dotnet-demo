@@ -62,6 +62,7 @@ resource appService 'Microsoft.Web/sites@2022-03-01' = {
       }
     }
     clientAffinityEnabled: clientAffinityEnabled
+    clientCertEnabled: true
     httpsOnly: true
     virtualNetworkSubnetId: !empty(virtualNetworkSubnetId) ? virtualNetworkSubnetId : null
   }

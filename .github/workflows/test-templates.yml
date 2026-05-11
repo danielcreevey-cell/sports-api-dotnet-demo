@@ -64,7 +64,7 @@ jobs:
       if: matrix.client-framework != 'none'
       working-directory: generated/src/Web/ClientApp
       run: |
-        npm ci
+        npm ci --ignore-scripts
         npm run build
 
     - name: Install Playwright browsers

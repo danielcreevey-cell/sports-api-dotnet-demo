@@ -27,6 +27,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-11-01' = {
     ] : []
     enabledForDeployment: enabledForDeployment
     enabledForTemplateDeployment: enabledForTemplateDeployment
+    enableRbacAuthorization: true
   }
 }
 
